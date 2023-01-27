@@ -1,0 +1,68 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("Skywars - v1.1", "Synapse")
+local Main = Window:NewTab("Main")
+local MainSection = Main:NewSection("Misc")
+MainSection:NewButton("Killaura", "Killaura", function()
+    end)
+--// Setting \\--
+local range = 15
+ 
+--// Variable \\--
+local player = game:GetService("Players").LocalPlayer
+ 
+--// Script \\--
+game:GetService("RunService").RenderStepped:Connect(function()
+    local p = game.Players:GetPlayers()
+    for i = 2, #p do local v = p[i].Character
+        if v and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and player:DistanceFromCharacter(v.HumanoidRootPart.Position) <= range then
+            local tool = player.Character and player.Character:FindFirstChildOfClass("Tool")
+            if tool and tool:FindFirstChild("Handle") then
+                tool:Activate()
+                for i,v in next, v:GetChildren() do
+                    if v:IsA("BasePart") then
+                        firetouchinterest(tool.Handle,v,0)
+                        firetouchinterest(tool.Handle,v,1)
+                    end
+                end
+            end
+        end
+    end
+end)
+
+
+MainSection:NewButton("Mega Access TP", "tps to mega room", function()
+    local plr = game:service"Players".LocalPlayer;
+local tween_s = game:service"TweenService";
+local info = TweenInfo.new(2,Enum.EasingStyle.Quad);
+function tp(...)
+   local tic_k = tick();
+   local params = {...};
+   local cframe = CFrame.new(params[1],params[2],params[3]);
+   local tween,err = pcall(function()
+       local tween = tween_s:Create(plr.Character["HumanoidRootPart"],info,{CFrame=cframe});
+       tween:Play();
+   end)
+   if not tween then return err end
+end
+tp(-0.47565409541130066, 263.9999084472656, 69.51551055908203);
+end)
+
+
+
+MainSection:NewButton("Ore Autofarm", "tps to ores and farms them", function()
+
+local cpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+ 
+local stuff = workspace:getDescendants()
+for i=1,#stuff do
+if stuff[i].Name == "Block" and stuff[i].Parent.Name == "Ores" then
+repeat
+wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = stuff[i].CFrame
+game.Players.LocalPlayer.Character.Axe.RemoteEvent:FireServer(stuff[i])
+until stuff[i].Name ~= "Block" or not game.Players.LocalPlayer.Character:findFirstChild("Axe")
+end
+end
+ 
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cpos
+end)()()()()
